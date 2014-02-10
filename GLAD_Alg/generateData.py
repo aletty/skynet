@@ -1,6 +1,6 @@
 import numpy
 
-def sample_competencies(n):
+def sample_accuracies(n):
 	# random number with mean 1 and variance 1
 	return numpy.random.randn(numLabelers) + 1
 
@@ -13,7 +13,7 @@ if __name__ == "__main__":
 	numItems = 20
 
 	# generate random labelers and images
-	alpha = sample_competencies(numLabelers)
+	alpha = sample_accuracies(numLabelers)
 	beta = sample_inv_difficulties(numItems)
 	
 	# True labels
@@ -22,7 +22,10 @@ if __name__ == "__main__":
 
 	# calculate the probabilities of each label being correct
 	A, B = numpy.meshgrid(alpha,beta)
+	_, Z = numpy.meshgrid(alpha,z)
 	probabilities = 1/(1+numpy.exp(-A*B))
 
-	# generate labels
-	pass # TODO
+	# generate observed labels
+	temp = numpy.random.rand(*probabilities.shape)
+	labels = (temp < probabilities)*Z + (temp >= probabilities)*(1-Z)
+	print labels
