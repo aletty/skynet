@@ -1,5 +1,6 @@
 import numpy as np
 import scipy as sp
+import matplotlib.pyplot as plt
 
 def sample_surveys(O,B):
     S = []
@@ -11,7 +12,7 @@ def sample_surveys(O,B):
     return S
 
 def sample_opinion(O,S,W):
-    avg = W[0]*O + sum([S[i]*w for i, w in enumerate(W[1:])])
+    avg = W[0]*O*300 + 30*sum([S[i]*w for i, w in enumerate(W[1:])])
     return np.random.dirichlet(avg)
 
 if __name__ == "__main__":
@@ -20,8 +21,10 @@ if __name__ == "__main__":
     M = 5   # number of polls
 
     # Choose biases and weights
-    B = 100*np.random.randn(M,N)
-    W = np.random.dirichlet(np.ones(M+1))
+    B = 10*np.random.randn(M,N)
+    weights = np.ones(M+1)
+    weights[0] = 30
+    W = np.random.dirichlet(weights)
 
     # Generate initial public opinion
     O = []
@@ -34,4 +37,10 @@ if __name__ == "__main__":
         S.append(sample_surveys(O[t],B))
         O.append(sample_opinion(O[t],S[t],W))
 
-    print O
+    O = np.array(O)
+    print O.shape
+    print T
+
+
+    plt.plot(range(T+1), O)
+    plt.show()
