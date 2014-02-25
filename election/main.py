@@ -6,7 +6,7 @@ def sample_surveys(O,B):
     S = []
 
     for i in range(B.shape[0]):
-        S.append(np.random.dirichlet(np.exp(B[i,:])*O))
+        S.append(np.random.dirichlet(B[i,:]*O))
 
     return S
 
@@ -22,8 +22,9 @@ if __name__ == "__main__":
 
     # Randomly select biases and weights based on priors
     B = 10*np.random.randn(M,N)
-    weights = np.concatenate((np.random.randn(1)+7,np.random.randn(M)))
-    W = np.exp(weights)
+    B = np.exp(B)
+    W = np.concatenate((.5*np.random.randn(1) + 7,np.random.randn(M)))
+    W = np.exp(W)
 
     # Generate initial public opinion
     O = []
