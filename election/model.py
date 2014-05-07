@@ -39,14 +39,17 @@ class Model(object):
 
     def generate(self,T):
     	assert T >= 1
-    	Z = [self.sampleInitial()]
-    	X = [self.sampleEmision(Z[0])]
+        try:
+        	Z = [self.sampleInitial()]
+        	X = [self.sampleEmision(Z[0])]
 
-    	for t in xrange(1,T):
-    		Z.append(self.sampleTransition(Z[t-1], X[t-1]))
-    		X.append(self.sampleEmision(Z[t]))
+        	for t in xrange(1,T):
+        		Z.append(self.sampleTransition(Z[t-1], X[t-1]))
+        		X.append(self.sampleEmision(Z[t]))
 
-    	return np.array(Z), np.array(X)
+        	return np.array(Z), np.array(X)
+        except ZeroDivisionError:
+            return self.generate(T)
 
     ###################################
     # Given probability distributions #
