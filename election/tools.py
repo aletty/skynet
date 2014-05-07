@@ -15,7 +15,17 @@ def generate(n,total):
 def generate_states(n,bins):
     return map(lambda x: [v/bins for v in x], generate(n,bins))
 
+def mul(list):
+    return reduce(lambda x, y: x*y, list)
+
+def dirichlet(alpha,bins):
+    """
+    return a dirichlet distribution using parameters 'alpha' and discretized into 'bins' bins
+    """
+    B = sp.special.gamma(sum(alpha))/mul(sp.special.gamma(alpha))
+
+    # TODO: implement this
+    pass
+
 if __name__ == "__main__":
-    print len(generate_states(5,10))
-    # print generate_states(5,5)
-    # print map(lambda x: [v/(5-1) for v in x], generate_states(3,5))
+    print generate(3,3)

@@ -2,6 +2,8 @@ from __future__ import division
 import numpy as np
 import scipy as sp
 
+from tools import *
+
 class Model(object):
     def __init__(self, i, b, w, bins=10):
         # set the model parameters
@@ -15,6 +17,7 @@ class Model(object):
 
         # set computational parameters
         self.bins = bins
+        self.quantiles = np.linspace(0,1,bins+1)
 
     ####################
     # Generative Model #
@@ -55,7 +58,6 @@ class Model(object):
     # Given probability distributions #
     ###################################
 
-
     def pInitial(self):
         return dirichlet(self.i)
     
@@ -87,18 +89,6 @@ class Model(object):
     def pStatePair(self,X,t):
         pass
 
-
-def mul(list):
-    return reduce(lambda x, y: x*y, list)
-
-def dirichlet(alpha,bins):
-    """
-    return a dirichlet distribution using parameters 'alpha' and discretized into 'bins' bins
-    """
-    B = sp.special.gamma(sum(alpha))/mul(sp.special.gamma(alpha))
-
-    # TODO: implement this
-    pass
 
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
