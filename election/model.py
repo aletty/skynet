@@ -18,6 +18,7 @@ class Model(object):
         # set computational parameters
         self.bins = bins
         self.quantiles = np.linspace(0,1,bins+1)
+        self.states = np.linspace(0,(bins-1)/bins,bins) + np.diff(self.quantiles)/2
 
     ####################
     # Generative Model #
@@ -67,28 +68,81 @@ class Model(object):
 
     def pEmission(self,z):
         # TODO: each poll should be chosen according to a multinomial distribution rather than a dirichlet distribution
-        x = []
-
-        for i in range(self.num_polls):
-            alpha = self.b[i]*z
-            x.append(dirichlet(alpha,self.bins)/self.num_polls)
-
-        x = np.array(x)
-        return x
+        # FIXME: implement this
+        pass
 
     #####################################
     # Derived Probability Distributions #
     #####################################
 
-    def logLiklihood(self, X):
-        pass
+    def logLiklihood(self, X, new_params):
+
+        # likelihood of initial state
+        l = np.log(self.pInitial())
+        p = self.pState(X,0)
+        initial = sum(p*l)
+
+        # likelihood of transitions
+        transition = 0
+        for x in X[:-1]:
+            for j in xrange(self.bins):
+                l = np.log(self.pTransition(j,X[t-1]))
+                p = self.pStatePair(j,X,t)
+                transition += sum(p*l)
+
+        # likelihood of observations
+        emission = 0
+        for t, x in enumerate(X):
+            l = np.array([np.log(self.pEmission(z,X[t]))])
+            p = self.pState(X,t)
+            emission += sum(p*l)
+
+        return initial + transition + emission
 
     def pState(self,X,t):
-        pass
 
-    def pStatePair(self,X,t):
-        pass
+        def M(t):
+            return np.matrix([self.pStatePair(z,X[t-1]) for z in self.states])
+            
+        # forewards algorithm
+        def alpha(t):
+            if t==0:
+                # TODO return stopping value
+                return self.pInitial()
+            # TODO build matrix M
+            evidence = np.array([self.pEmission(z,x[t]) for z in self.states])
+            trans = np.array(M(t).T*alpha(t-1))
+            return  evidence*trans 
+        
+        # backwards algorithm
+        def beta(t):
+            if t==(len(X)-1):
+                return np.ones(self.bins)
+            # TODO build matrix M
+            evidence = np.array([self.pEmission(z,x[t]) for z in self.states])
+            return np.array(M(t)*np.matrix(evidence*beta(t+1)).T)
 
+        return alpha(t)*beta(t)
+
+    def pStatePair(self,z,X,t):
+        
+        # forewards algorithm
+        def alpha(t):
+            if t==0:
+                # TODO return stopping value
+                return
+            # TODO build matrix M
+            return M*alpha(t-1)
+        
+        # backwards algorithm
+        def beta(t):
+            if t==(len(X)-1):
+                # TODO return stopping condition
+                return
+            # TODO build matrix M
+            return M*beta(t+1)
+
+        return alpha(t)*beta(t)
 
 if __name__ == "__main__":
     import matplotlib.pyplot as plt

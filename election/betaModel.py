@@ -7,30 +7,35 @@ class BetaModel(Model):
     def __init__(self,i,b,w,bins=10):
         super(BetaModel,self).__init__(i,b,w,bins)
         assert self.num_candidates == 2
+        assert self.num_polls == 2
 
     #####################################################
     # Use beta distributions for two dimensional models #
     #####################################################
     def pInitial(self):
+        """
+        Returns a distribution over initial states (z)
+        The distribution is discretized into the number of bins specified by self.bins
+        """
         cdf = beta(self.i[0],self.i[1]).cdf(self.quantiles)
         return np.diff(cdf)
     
     def pTransition(self,z,x):
-        alpha = self.w[0]*z + sum([x[i]*self.w for i, w in enumerate(self.w[1:])])
+        """
+        Returns a distribution over transitions to z given the current state (z) and observation (x)
+        The distribution is discretized into the number of bins specified by self.bins
+        """
+        alpha = self.w[0]*z + sum([x[i]*w for i, w in enumerate(self.w[1:])])
         cdf = beta(alpha[0], alpha[1]).cdf(self.quantiles)
         return np.diff(cdf)
 
-    def pEmission(self,z):
+    def pEmission(self,z,x):
+        """
+        Returns a number proportional to the probability of x given z
+        """
         # TODO: each poll should be chosen according to a multinomial distribution rather than a dirichlet distribution
-        x = []
-
-        for i in range(self.num_polls):
-            alpha = self.b[i]*z
-            cdf = beta(alpha[0], alpha[1]).cdf(self.quantiles)
-            x.append(np.diff(cdf)/self.num_polls)
-
-        x = np.array(x)
-        return x
+        alpha = self.b[i]*z
+        return beta_pdf(alpha[0], alpha[1], x[0])
 
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
@@ -38,7 +43,7 @@ if __name__ == "__main__":
     # Genrate a test case
     # Define size of network
     T = 100 # number of timebinss
-    M = 5   # number of polls
+    M = 2   # number of polls
 
     # Randomly model parameters based on priors
     I = 2*np.ones(2)
@@ -48,7 +53,8 @@ if __name__ == "__main__":
     W = np.exp(W)
 
     model = BetaModel(i=I,b=B,w=W)
-    
+
+    print model.states
     ## Generate Test Data
     # Z, X = model.generate(T)
     # plt.plot(range(T),Z)

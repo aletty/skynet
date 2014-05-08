@@ -1,5 +1,8 @@
 from __future__ import division
 import numpy as np
+import scipy as sp
+from scipy.special import beta
+from operator import mul
 
 def generate(n,total):
     if n == 1:
@@ -15,8 +18,8 @@ def generate(n,total):
 def generate_states(n,bins):
     return map(lambda x: [v/bins for v in x], generate(n,bins))
 
-def mul(list):
-    return reduce(lambda x, y: x*y, list)
+def beta_pdf(a,b,x):
+    return (x**a)*((1-x)**b)/sp.special.beta(a,b)
 
 def dirichlet(alpha,bins):
     """
