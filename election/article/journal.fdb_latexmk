@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1399579258 "journal.tex" "journal.pdf" "journal" 
+["pdflatex"] 1399600590 "journal.tex" "journal.pdf" "journal" 
   "/etc/texmf/tex/latex/config/graphics.cfg" 1255993321 3328 2584cfe577535f0a08f3a9717b5152ab ""
   "/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii" 1251025892 71625 fad1c4b52151c234b6873a255b0ad6b3 ""
   "/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty" 1246382020 5548 21cc890100eeac7a6a792024ef2889eb ""
@@ -16,8 +16,8 @@
   "/usr/share/texmf-texlive/tex/latex/graphics/trig.sty" 1156702488 3153 c50e6bd54d2dd3933fc52bcf369bec4a ""
   "/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def" 1322143080 40817 59149cdca908875781bb2f74014004ed ""
   "amsart.cls" 1399593578 61068 95063d327b97e96350372631fd99a8c8 ""
-  "journal.aux" 1399579259 1032 f1b62c29db7621e79a2541122fc52157 ""
-  "journal.tex" 1399593578 11854 2642a4c2db453078e418ef480c96d14a ""
+  "journal.aux" 1399600590 1195 e7bcfd622523874f59139960ea221bfc ""
+  "journal.tex" 1399600590 12381 8e6f8ad35cdfabb6dcfdd839ce7a492a ""
   "lion.png" 1399593578 14848 03aea4a00da11fd0cb69b384b3655503 ""
   (generated)
   "journal.aux"

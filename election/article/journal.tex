@@ -85,17 +85,25 @@ There is a set of problems, however, in which the observations can influence the
 In this paper we will discuss the computational methods necessary to analyze the graphical model discussed above. We will also revisit this example of using Expectation Maximization to predict the outcome of an election based on poll data.
 
 \section{The Model}
-The hidden Markov Model is given by a series of hidden states $Z = \{ z_t\}$, each of which emits an observable variable $X = \{ x_t\}$. According to the Markov condition state transitions rely only on the previous state, and observations rely only on the immediate state. As a result the model can be described by three probability distributions, the initial state probability $P(z_0)$, the transition probability $P(z_t|z_{t-1})$ and the emission probability $P(x_t|z_t)$.
+The hidden Markov Model is given by a series of hidden states $\textbf{Z} = \{ z_t\}$, each of which emits an observable variable $\textbf{X} = \{ x_t\}$. According to the Markov condition state transitions rely only on the previous state, and observations rely only on the immediate state. As a result the model can be described by three probability distributions, the initial state probability $P(z_0)$, the transition probability $P(z_t|z_{t-1})$ and the emission probability $P(x_t|z_t)$.
 
-In cases when all of the states and observations can be enumerated and when there is no prior knowledge of the structure of these probability distributions it is common to formulate these probability distributions by tabulating each of the probabilities in three matrices: $\pi = \{\pi_i\}$, $A = \{ \alpha_{ij}\}$, $B = \{ \beta_{ij}\}$. The initial state probability is given by $P(z_0 = i) = \pi_i$, the transition probability is given by $P(z_t = j | z_{t-1} = i) = \alpha_{ij}$ and the emission probability is given by $P(x_t = j | z_t = i) = \beta_{ij}$ The Expectation-Maximization algorithm, then attempts to compute each element in these tables. This specific implementation of Expectation-Maximization is called the Baum-Welch algorithm.
+For problems in which there is no prior knowledge of the form of these probability distributions it is common to tabulate each of the probabilities in three matrices: $\pi = \{\pi_i\}$, $A = \{ \alpha_{ij}\}$, $B = \{ \beta_{ij}\}$. The initial state probability is given by $P(z_0 = i) = \pi_i$, the transition probability is given by $P(z_t = j | z_{t-1} = i) = \alpha_{ij}$ and the emission probability is given by $P(x_t = j | z_t = i) = \beta_{ij}$ The Expectation-Maximization algorithm, then attempts to compute each element in these tables. This specific implementation of Expectation-Maximization is called the Baum-Welch algorithm.
 
 The model that we introduce here introduces a new dependency in the state transitions. In this new model these transitions rely not only on the previous state, but also the previous observation. This changes the form of the transition probability to $P(z_t | z_{t-1}, t_{x-1})$.
 
 \section{Expectation-Maximization}
-In some applications, in which the form of these probability distributions is unknown, it may make sense to parametrize the probability distributions in a similar manner to the HMM described above. In general, however, the structure of Expectation Maximization is independent of the choice of parametrization and we will use the variable $\theta$ to describe a general set of parameters, e.g., the parametrization used in the Baum-Welch algorithm is $\theta = (\pi,A,B)$.
+In some applications, in which the form of these probability distributions is unknown, it may make sense to parametrize the probability distributions in a similar manner to the HMM described above. In general, however, the structure of Expectation-Maximization is independent of the choice of parametrization and we will use the variable $\theta$ to describe a general set of parameters, e.g., the parametrization used in the Baum-Welch algorithm is $\theta = (\pi,A,B)$.
 
+The Expectation-Maximization procedure is generally separated into two steps, the E-step and the M-step
 
+\subsection*{The E-Step}
+The goal of the E-Step is to formulate a fuction, $Q(\theta, \theta^t)$, the computes the expected value of the log-likelihood of parameters with respect to the probabilities of the latent variables given the last best guess of the parameters.
+\[
+Q(\theta,\theta^t) = \textbf{E}_{\textbf{Z}|\textbf{X},\theta^t} \left[\log{P(\textbf{X},\textbf{Z}|\theta)}\right]
+\]
 
+\subsection*{The M-Step}
+The purpose of the M-Step is to optimize the log-likelihood function formulated in the E-Step.
 
 The following is an example of a proof.
 

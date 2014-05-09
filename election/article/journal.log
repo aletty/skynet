@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.4.9)  8 MAY 2014 16:00
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.4.9)  8 MAY 2014 21:56
 entering extended mode
  %&-line parsing enabled.
 **journal.tex
@@ -169,17 +169,17 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 \MPnumerator=\count105
 \everyMPtoPDFconversion=\toks27
 ) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-<lion.png, id=25, 84.315pt x 98.3675pt>
-File: lion.png Graphic file (type png)
- <use lion.png>
-File: lion.png Graphic file (type png)
- <use lion.png>
 Overfull \hbox (108.37733pt too wide) has occurred while \output is active
  \OT1/cmr/m/n/7 EXPECTATION MAXIMIZATION FOR ELECTION PREDICTION IN A HMM-LIKE 
 PROBABILISTIC GRAPHICAL MODEL. []
  []
 
-[3] [4 <./lion.png>]
+[3] <lion.png, id=30, 84.315pt x 98.3675pt>
+File: lion.png Graphic file (type png)
+ <use lion.png>
+File: lion.png Graphic file (type png)
+ <use lion.png>
+[4 <./lion.png>]
 Overfull \hbox (108.37733pt too wide) has occurred while \output is active
  \OT1/cmr/m/n/7 EXPECTATION MAXIMIZATION FOR ELECTION PREDICTION IN A HMM-LIKE 
 PROBABILISTIC GRAPHICAL MODEL. []
@@ -187,34 +187,35 @@ PROBABILISTIC GRAPHICAL MODEL. []
 
 [5] (./journal.aux) ) 
 Here is how much of TeX's memory you used:
- 2086 strings out of 495061
- 24024 string characters out of 1182622
- 83962 words of memory out of 3000000
- 5115 multiletter control sequences out of 15000+50000
- 10692 words of font info for 42 fonts, out of 3000000 for 9000
+ 2090 strings out of 495061
+ 24062 string characters out of 1182622
+ 83963 words of memory out of 3000000
+ 5117 multiletter control sequences out of 15000+50000
+ 11311 words of font info for 44 fonts, out of 3000000 for 9000
  189 hyphenation exceptions out of 8191
- 34i,22n,32p,812b,264s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 34i,22n,32p,812b,351s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/c
-mbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx8.pfb></
-usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/
-texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texli
-ve/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/share/texmf-texlive/font
-s/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/pub
-lic/amsfonts/cm/cmmi5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts
-/cm/cmmi7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pf
-b></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share
-/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-texliv
-e/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1
-/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/ams
-fonts/cm/cmsy5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cms
-y7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></us
-r/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texm
-f-texlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-texlive/f
-onts/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texmf-texlive/fonts/type1/p
-ublic/amsfonts/symbols/msam10.pfb>
-Output written on journal.pdf (5 pages, 267678 bytes).
+mbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx7.pfb></
+usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/te
+xmf-texlive/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-texliv
+e/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/typ
+e1/public/amsfonts/cmextra/cmex7.pfb></usr/share/texmf-texlive/fonts/type1/publ
+ic/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts
+/cm/cmmi5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi7.pf
+b></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/shar
+e/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texmf-texli
+ve/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-texlive/fonts/type
+1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsf
+onts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cms
+y5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr
+/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texm
+f-texlive/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texmf-texlive/fo
+nts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-texlive/fonts/type1/p
+ublic/amsfonts/cm/cmtt8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfon
+ts/symbols/msam10.pfb>
+Output written on journal.pdf (5 pages, 277083 bytes).
 PDF statistics:
- 101 PDF objects out of 1000 (max. 8388607)
+ 105 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
