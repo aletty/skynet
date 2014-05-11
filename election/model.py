@@ -59,14 +59,17 @@ class Model(object):
     # Given probability distributions #
     ###################################
 
-    def pInitial(self):
-        return dirichlet(self.i)
+    def pInitial(self,params=None):
+        i = params['i'] if params else self.i
+        return dirichlet(i)
     
-    def pTransition(self,z,x):
-        alpha = self.w[0]*z + sum([x[i]*self.w for i, w in enumerate(self.w[1:])])
+    def pTransition(self,z,x,params=None):
+        w = params['w'] if params else self.w
+        alpha = w[0]*z + sum([x[i]*_w for i, _w in enumerate(w[1:])])
         return dirichlet(alpha, self.bins)
 
-    def pEmission(self,z):
+    def pEmission(self,z,x,params=None):
+        b = params['b'] if params else self.b
         # TODO: each poll should be chosen according to a multinomial distribution rather than a dirichlet distribution
         # FIXME: implement this
         pass
@@ -102,7 +105,7 @@ class Model(object):
     def pState(self,X,t):
 
         def M(t):
-            return np.matrix([self.pStatePair(z,X[t-1]) for z in self.states])
+            return np.matrix([self.pTransition(z,X[t-1]) for z in self.states])
             
         # forewards algorithm
         def alpha(t):
@@ -122,18 +125,20 @@ class Model(object):
             evidence = np.array([self.pEmission(z,x[t]) for z in self.states])
             return np.array(M(t)*np.matrix(evidence*beta(t+1)).T)
 
-        return alpha(t)*beta(t)
+        return M(t)
+        # return alpha(t)*beta(t)
 
     def pStatePair(self,z,X,t):
-        
-        # forewards algorithm
+
+
+        # forwards algorithm
         def alpha(t):
             if t==0:
                 # TODO return stopping value
                 return
             # TODO build matrix M
             return M*alpha(t-1)
-        
+
         # backwards algorithm
         def beta(t):
             if t==(len(X)-1):
@@ -142,7 +147,8 @@ class Model(object):
             # TODO build matrix M
             return M*beta(t+1)
 
-        return alpha(t)*beta(t)
+        res = alpha(t)*beta(t)
+        return res/sum(res)
 
 if __name__ == "__main__":
     import matplotlib.pyplot as plt

@@ -13,6 +13,7 @@
 
 %     If your article includes graphics, uncomment this command.
 \usepackage{graphicx}
+\usepackage[makeroom]{cancel}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -145,7 +146,7 @@ To begin, we use Bayes rule and note the conditional independence of $X_{t+1:T}$
 \[
 P(Z_t|\textbf{X},\theta') = \frac{P(Z_t|X_{1:t},\theta')P(X_{t+1:T}|Z_t,X_t)}{P(X_{t+1:T}|\theta')}
 \]
-Letting $\textbf{$\alpha$}_t$ and $\textbf{$\beta$}_t$ represent the forwards and backwards components, respectively we get $\alpha_t(i) = P(Z_t=z_i|X_{1:t},\theta')$ and $\beta_t(i) = P(X_{t+1:T}|Z_t=z_i,X_t)$. In order to compute $\alpha_t$ we expand as follows
+Letting $\boldsymbol\alpha_t$ and $\boldsymbol\beta_t$ represent the forwards and backwards components, respectively we get $\alpha_t(i) = P(Z_t=z_i|X_{1:t},\theta')$ and $\beta_t(i) = P(X_{t+1:T}|Z_t=z_i,X_t)$. In order to compute $\alpha_t$ we expand as follows
 \begin{align*}
 \alpha_t(i) &= P(Z_t=z_i|X_{1:t}, \theta')\\
 &\propto P(Z_t = z_i, X_t | X_{1:t-1}, \theta')\\
@@ -153,12 +154,25 @@ Letting $\textbf{$\alpha$}_t$ and $\textbf{$\beta$}_t$ represent the forwards an
 &= \sum_j P(Z_t = z_i, X_t | Z_{t-1} = z_j, X_{t-1}, \theta')P(Z_{t-1} = z_j| X_{1:t-1}, \theta')\\
 &= P(X_t | Z_t = z_i, \theta') \sum_j P(Z_t = z_i | Z_{t-1} = z_j, X_{t-1}, \theta')\alpha(j)_{t-1}
 \end{align*}
-Using the new variables $\psi_i = P(X_t | Z_t = z_i, \theta')$ and $\Psi_{i,j}(X_{t-1}) = P(Z_t = z_j | Z_{t-1} = z_i, X_{t-1}, \theta')$ we can define $\textbf{$\alpha$}_t$ consicely as
+Using the new variables $\psi_i = P(X_t | Z_t = z_i, \theta')$ and $\Psi_{ij}(t) = P(Z_t = z_j | Z_{t-1} = z_i, X_{t-1}, \theta')$ we can define $\boldsymbol\alpha_t$ consicely as
 \[
-\textbf{$\alpha$}_t = \textbf{$\psi$} \odot \textbf{$\Psi$}^T \textbf{$\alpha$}_{t-1}
+\boldsymbol\alpha_t = \boldsymbol\psi \odot \boldsymbol\Psi^T \boldsymbol\alpha_{t-1}
 \]
 where $\odot$ is an element-wise vector product.
 
+Similarly to the forwards step, the backwards step is computed recursively. Assuming we know $\beta_t$ we can compute $\beta_{t-1}$ as follows.
+\begin{align*}
+\beta_{t-1}(i) &= P(X_{t:T}|Z_{t-1} = z_i, X_{t-1})\\
+&= \sum_j P(X_{t:T}, Z_t = z_j|Z_{t-1} = z_i, X_{t-1})\\
+&= \sum_j P(Z_t = z_j, X_t|Z_{t-1} = z_i, X_{t-1})P(X_{t+1:T}| Z_t = z_j, X_{t}, \cancel{Z_{t-1} = z_i}, \cancel{X_{t-1}})\\
+&= \sum_j P(Z_t = z_j, X_t|Z_{t-1} = z_i, X_{t-1})\beta_t(j)\\
+&= \sum_j P(Z_t = z_j|Z_{t-1} = z_i, X_{t-1}) P(X_t | Z_t = z_j, \cancel{Z_{t-1} = z_i}, \cancel{X_{t-1}})\beta_t(j)\\
+&= \sum_j \Psi_{i,j}\psi_j\beta_t(j)
+\end{align*}
+Which can be written concisely as 
+\[
+\boldsymbol\Psi(\boldsymbol\psi \odot \boldsymbol\beta_t)
+\]
 
 \subsection*{The M-Step}
 The purpose of the M-Step is to optimize the log-likelihood function formulated in the E-Step.
