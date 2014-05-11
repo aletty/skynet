@@ -37,7 +37,6 @@ class BetaModel(Model):
         res = 1
         for i in xrange(self.num_polls):
             alpha = self.b[i]*z
-            print x
             res *= Beta.pdf(x[i,0], alpha[0], alpha[1])
         return res
 
@@ -46,7 +45,7 @@ if __name__ == "__main__":
 
     # Generate a test case
     # Define size of network
-    T = 100 # number of timebinss
+    T = 100 # number of time steps
     M = 3   # number of polls
 
     # Randomly model parameters based on priors
@@ -60,7 +59,6 @@ if __name__ == "__main__":
 
     ## Generate Test Data
     Z, X = model.generate(T)
-    M = model.pState(X,0)
-    print np.sum(M,1)
+    print model.pState(X,0)
     # plt.plot(range(T),Z)
     # plt.show()

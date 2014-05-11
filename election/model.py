@@ -105,14 +105,13 @@ class Model(object):
     def pState(self,X,t):
 
         def M(t):
-            return np.matrix([self.pTransition(z,X[t-1]) for z in self.states])
+            return np.matrix([self.pTransition(z,X[t-1]) for z in self.states]).T
             
-        # forewards algorithm
+        # forwards algorithm
         def alpha(t):
             if t==0:
                 # TODO return stopping value
-                return self.pInitial()
-            # TODO build matrix M
+                return self.pInitial()*np.array([self.pEmission(z,X[0]) for z in self.states])
             evidence = np.array([self.pEmission(z,x[t]) for z in self.states])
             trans = np.array(M(t).T*alpha(t-1))
             return  evidence*trans 
@@ -121,31 +120,29 @@ class Model(object):
         def beta(t):
             if t==(len(X)-1):
                 return np.ones(self.bins)
-            # TODO build matrix M
-            evidence = np.array([self.pEmission(z,x[t]) for z in self.states])
+            evidence = np.array([self.pEmission(z,X[t]) for z in self.states])
             return np.array(M(t)*np.matrix(evidence*beta(t+1)).T)
 
-        return M(t)
-        # return alpha(t)*beta(t)
+        res = alpha(t)*beta(t)
+        return res/sum(res)
 
     def pStatePair(self,z,X,t):
 
+        def M(t):
+            # TODO implement this
+            pass
 
         # forwards algorithm
         def alpha(t):
             if t==0:
-                # TODO return stopping value
-                return
-            # TODO build matrix M
-            return M*alpha(t-1)
+                return # TODO return stopping value
+            return # TODO return the appropriate value
 
         # backwards algorithm
         def beta(t):
             if t==(len(X)-1):
-                # TODO return stopping condition
-                return
-            # TODO build matrix M
-            return M*beta(t+1)
+                return np.ones(self.bins)
+            return # TODO return the apprpriate value
 
         res = alpha(t)*beta(t)
         return res/sum(res)
