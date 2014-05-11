@@ -102,7 +102,7 @@ In some applications, in which the form of these probability distributions is un
 The Expectation-Maximization procedure is generally separated into two steps, the E-step and the M-step
 
 \subsection*{The E-Step}
-The goal of the E-Step is to formulate a fuction, $Q(\theta, \theta')$, the computes the expected value of the log-likelihood of parameters with respect to the probabilities of the latent variables given the last best guess of the parameters.
+The goal of the E-Step is to formulate a fuction, $Q(\theta, \theta')$, that computes the expected value of the log-likelihood of parameters with respect to the probabilities of the latent variables given the last best guess of the parameters.
 \[
 Q(\theta,\theta') = \textbf{E}_{\textbf{Z}|\textbf{X},\theta'} \left[\log{P(\textbf{X},\textbf{Z}|\theta)}\right]
 \]
