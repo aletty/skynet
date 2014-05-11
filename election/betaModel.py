@@ -59,6 +59,6 @@ if __name__ == "__main__":
 
     ## Generate Test Data
     Z, X = model.generate(T)
-    print model.pState(X,0)
+    print model.pState(X,50)
     # plt.plot(range(T),Z)
     # plt.show()

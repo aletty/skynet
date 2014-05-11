@@ -111,10 +111,12 @@ class Model(object):
         def alpha(t):
             if t==0:
                 # TODO return stopping value
-                return self.pInitial()*np.array([self.pEmission(z,X[0]) for z in self.states])
-            evidence = np.array([self.pEmission(z,x[t]) for z in self.states])
+                return np.matrix(self.pInitial()*np.array([self.pEmission(z,X[0]) for z in self.states])).T
+            evidence = np.array([self.pEmission(z,X[t]) for z in self.states])
+            print M(t).shape
+            print alpha(0).shape
             trans = np.array(M(t).T*alpha(t-1))
-            return  evidence*trans 
+            return  evidence*trans
         
         # backwards algorithm
         def beta(t):
