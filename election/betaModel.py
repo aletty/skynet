@@ -1,4 +1,4 @@
-import numpy as np
+import mynumpy as np
 import scipy as sp
 from scipy.stats import beta as Beta
 from model import Model
@@ -42,7 +42,7 @@ class BetaModel(Model):
         return res
 
 if __name__ == "__main__":
-    import matplotlib.pyplot as plt
+    # import matplotlib.pyplot as plt
 
     # Generate a test case
     # Define size of network
