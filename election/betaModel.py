@@ -41,7 +41,7 @@ class BetaModel(Model):
         return res
 
 if __name__ == "__main__":
-    # import matplotlib.pyplot as plt
+    import matplotlib.pyplot as plt
 
     # Generate a test case
     # Define size of network
@@ -50,7 +50,7 @@ if __name__ == "__main__":
 
     # Randomly model parameters based on priors
     I = 2*np.ones(2)
-    B = 10*np.random.randn(M,2)
+    B = np.random.randn(M,2) 
     B = np.exp(B)
     W = np.concatenate((.5*np.random.randn(1) + 7,np.random.randn(M)))
     W = np.exp(W)
@@ -59,6 +59,9 @@ if __name__ == "__main__":
 
     ## Generate Test Data
     Z, X = model.generate(T)
-    print model.pState(X,50)
-    # plt.plot(range(T),Z)
-    # plt.show()
+
+    ## Plot Test Data
+    plt.plot(range(T),Z)
+    plt.show()
+
+    print np.sum(model.pState(X,1))

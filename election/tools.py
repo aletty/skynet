@@ -3,6 +3,7 @@ import numpy as np
 import scipy as sp
 from scipy.special import beta
 from operator import mul
+from functools import wraps
 
 def generate(n,total):
     if n == 1:
@@ -29,6 +30,9 @@ def dirichlet(alpha,bins):
 
     # TODO: implement this
     pass
+
+def sanitize(v):
+    return np.array(map(lambda x: 1e-300 if x==0 else x,v))
 
 if __name__ == "__main__":
     print generate(3,3)

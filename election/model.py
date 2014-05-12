@@ -1,5 +1,5 @@
 from __future__ import division
-import numpy as np
+import mynumpy as np
 import scipy as sp
 
 from tools import *
@@ -105,25 +105,23 @@ class Model(object):
     def pState(self,X,t):
 
         def M(t):
-            return np.matrix([self.pTransition(z,X[t-1]) for z in self.states]).T
-            
+            return np.matrix([sanitize(self.pTransition(z,X[t-1])) for z in self.states]).T
+
         # forwards algorithm
         def alpha(t):
-            if t==0:
-                # TODO return stopping value
-                return np.matrix(self.pInitial()*np.array([self.pEmission(z,X[0]) for z in self.states])).T
-            evidence = np.array([self.pEmission(z,X[t]) for z in self.states])
-            print M(t).shape
-            print alpha(0).shape
-            trans = np.array(M(t).T*alpha(t-1))
+            if t==1:
+                return self.pInitial()*np.array([self.pEmission(z,X[0]) for z in self.states])
+            
+            evidence = np.array([self.pEmission(z,X[t-1]) for z in self.states])
+            trans = np.array(M(t).T*np.matrix(alpha(t-1)).T)[...,0]
             return  evidence*trans
         
         # backwards algorithm
         def beta(t):
-            if t==(len(X)-1):
+            if t==(len(X)):
                 return np.ones(self.bins)
-            evidence = np.array([self.pEmission(z,X[t]) for z in self.states])
-            return np.array(M(t)*np.matrix(evidence*beta(t+1)).T)
+            evidence = np.array([self.pEmission(z,X[t-1]) for z in self.states])
+            return np.array(M(t)*np.matrix(evidence*beta(t+1)).T)[...,0]
 
         res = alpha(t)*beta(t)
         return res/sum(res)
